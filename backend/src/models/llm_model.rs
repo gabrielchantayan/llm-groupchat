@@ -1,3 +1,6 @@
+use rand::seq::SliceRandom;
+
+#[derive(Debug, Clone)]
 pub struct LlmModel {
     pub model_name: String,
     pub openrouter_model_id: String,
@@ -21,6 +24,7 @@ impl LlmModel {
     }
 }
 
+#[derive(Debug, Clone)]
 pub struct OrderedLlmModels {
     pub models: Vec<LlmModel>,
 }
@@ -34,7 +38,14 @@ impl OrderedLlmModels {
         self.models.len()
     }
 
-    pub fn iter(&self) -> impl Iterator<Item = &LlmModel> {
+    pub fn iter(&self) -> impl Iterator<Item = (usize, &LlmModel)> {
         self.models.iter().enumerate()
+    }
+
+    pub fn random(&self) -> LlmModel {
+        self.models
+            .choose(&mut rand::thread_rng())
+            .cloned()
+            .expect("No models found")
     }
 }

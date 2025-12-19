@@ -7,7 +7,9 @@ edition = "2024"
 [dependencies]
 openrouter-rs = "0.4.5"
 tokio = { version = "1", features = ["full"] }
-sqlx = { version = "0.8.6", features = ["runtime-tokio-native-tls", "sqlite"] }
+sqlx = { version = "0.8.6", features = ["runtime-tokio-native-tls", "sqlite", "migrate"] }
+tokio-cron-scheduler = "0.15.1"
 async-trait = "0.1"
 thiserror = "2.0"
-
+dotenvy = "0.15.7"
+rand = "0.8"

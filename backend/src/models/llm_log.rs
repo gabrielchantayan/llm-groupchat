@@ -7,6 +7,12 @@ pub struct LlmLog {
     pub groupchat: String,
 }
 
+impl LlmLog {
+    pub fn format(&self) -> String {
+        format!("[{}]: {}", self.model, self.message)
+    }
+}
+
 /// Input for creating a new LLM log entry (id and timestamp are auto-generated)
 #[derive(Debug, Clone)]
 pub struct CreateLlmLog {

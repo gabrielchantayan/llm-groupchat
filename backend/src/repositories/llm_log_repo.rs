@@ -36,7 +36,7 @@ impl LlmLogRepo {
     }
 
     /// Retrieve the n most recent logs, sorted by most recent first.
-    pub async fn get_recent_logs(&self, n: u32) -> Result<Vec<LlmLog>, RepositoryError> {
+    pub async fn get_recent_logs(&self, n: u8) -> Result<Vec<LlmLog>, RepositoryError> {
         let result = sqlx::query_as::<_, LlmLog>(
             r#"
             SELECT id, model, message, timestamp, groupchat
@@ -49,6 +49,6 @@ impl LlmLogRepo {
         .fetch_all(&self.pool)
         .await?;
 
-        Ok(result)
+        Ok(result as Vec<LlmLog>)
     }
 }
